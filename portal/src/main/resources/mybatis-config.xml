@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 将数据库中含下划线的字段中的下划线去除，并将第二个单词的首字母大写。即骆驼命名法 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+
+        <!-- 控制台打印后台SQL执行的log -->
+		<!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
+	</settings>
+</configuration>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+							http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+    <!-- 会话Cookie模板 -->  
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
+        <constructor-arg value="sid"/>  
+        <property name="httpOnly" value="true"/>  
+        <property name="maxAge" value="-1"/>  
+    </bean>
+    
+    <!-- 下次自动登录  -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
+        <constructor-arg value="rememberMe"/>
+        <property name="path" value="/"/>  
+        <property name="domain" value="onlinecollege.com"/>  
+        <property name="httpOnly" value="true"/>  
+        <property name="maxAge" value="2592000"/><!-- 30天 -->  
+    </bean>
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">  
+	    <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>  
+     	<property name="cookie" ref="rememberMeCookie"/>  
+	</bean>
+	
+    <!-- 自定义Realm -->  
+    <bean id="authRealm" class="com.leon.onlinestudy.service.web.auth.AuthRealm"></bean>
+    
+    <!-- 保存在内存 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="authRealm" />
+		<property name="rememberMeManager" ref="rememberMeManager"/>  
+	</bean>
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>  
+	
+	<!-- 自定义 filter -->
+	<bean id="authFilter" class="com.leon.onlinestudy.service.web.auth.AuthFilter" />
+	
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="unauthorizedUrl" value="/error/403.html" />
+		<property name="successUrl" value="/" />
+		<property name="loginUrl" value="/auth/login.html" />
+		<property name="filters">
+			<map>
+				<entry key="authc" value-ref="authFilter" />
+			</map>
+		</property>
+
+		<!--/**-->
+		<!--* SHIRO FACTORY DEFAULT FILTERS-->
+		<!--*-->
+		<!--* anon - anonymous filter-->
+		<!--* authc - forms authentication filter-->
+		<!--* basic = basic http authentication filter-->
+		<!--* notfound - not found filter-->
+		<!--* perms - permissions authorization filter-->
+		<!--* port - port filter-->
+		<!--* roles - roles authorization filter-->
+		<!--* user - user filter-->
+		<!--*/-->
+
+		<property name="filterChainDefinitions">
+			<value>
+				/error/** = anon
+				/res/** = anon
+				/tools/** = anon
+				/index.html* = anon
+				/auth/** = anon
+
+				/course/list.html* = anon
+				/course/learn/*.html = anon
+				/course/video/*.html = authc
+				
+				/courseComment/segment.html* = anon
+				<!-- 除以上配置外，其余都需登录 -->
+				/** = authc
+			</value>
+		</property>
+	</bean>
+	
+</beans>
+

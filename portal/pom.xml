@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>onlinestudy</artifactId>
+		<groupId>com.leon.onlinestudy</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.leon.onlinestudy</groupId>
+	<artifactId>portal</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>portal Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		
+		<dependency>
+			<groupId>com.leon.onlinestudy</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.leon.onlinestudy</groupId>
+			<artifactId>service</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		
+	</dependencies>
+
+	<build>
+		<finalName>portal</finalName>
+	</build>
+
+</project>

@@ -1,0 +1,16 @@
+<!-- 供登录和注册页面调用，无右上角的登录和注册 -->
+<div class="f-header">
+	<div class="f-header-box clearfix">
+		<a href="${s.base}"  class="logo" title="onlinestudy学习平台"></a>
+		<nav class="header-nav">
+			<a href="${s.base}" class="header-nav-item">首 页</a>
+			<a href="${s.base}/course/list.html" class="header-nav-item">课 程</a>
+			<a href="${s.base}/user/home.html" class="header-nav-item">我的</a>
+		</nav>
+	</div>
+</div>
+<script>
+function reloadIndityImg(eleId){
+	document.getElementById(eleId).src = CONTEXT_PATH + "/tools/identiry/code.html?ticket=" + Math.random();
+}
+</script>
